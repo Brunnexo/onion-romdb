@@ -1,0 +1,33 @@
+name: Update catalog
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip if romgi version unchanged
+        id: check
+        run: |
+          remote=$(curl -sfL https://raw.githubusercontent.com/caprado/romgi/main/db/version.json | python3 -c 'import json,sys;print(json.load(sys.stdin)["version"])')
+          local=$(python3 -c 'import json;print(json.load(open("version.json"))["version"])' 2>/dev/null || echo none)
+          echo "remote=$remote" >> "$GITHUB_OUTPUT"
+          [ "$remote" = "$local" ] && echo "skip=true" >> "$GITHUB_OUTPUT" || echo "skip=false" >> "$GITHUB_OUTPUT"
+      - name: Build catalog
+        if: steps.check.outputs.skip == 'false'
+        run: python3 scripts/filter_romgi.py
+      - name: Commit
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add romdb.db.gz version.json
+          git commit -m "Update catalog ${{ steps.check.outputs.remote }}"
+          git push
