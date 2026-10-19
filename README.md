@@ -21,4 +21,4 @@ python scripts/filter_romgi.py caminho/romdb.db.gz  # a partir de um banco local
 
 ## No Onion
 
-O app lê `https://raw.githubusercontent.com/<usuario>/onion-romdb/main/{version.json,romdb.db.gz}`. A URL base fica em `.tmp_update/script/romdb_update.sh` (`catalog_url`) e pode ser sobrescrita pelo arquivo `.tmp_update/config/romdl_catalog_url`.
+O app lê `https://raw.githubusercontent.com/Brunnexo/onion-romdb/main/{version.json,romdb.db.gz}`. A URL base fica em `.tmp_update/script/romdb_update.sh` (`catalog_url`) e pode ser sobrescrita pelo arquivo `.tmp_update/config/romdl_catalog_url`.
