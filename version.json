@@ -1,9 +1,9 @@
 {
-  "version": "20261018",
-  "generated_at": "2026-10-19T19:26:39Z",
+  "version": "20261025",
+  "generated_at": "2026-10-26T06:33:18Z",
   "schema_version": 4,
-  "size": 10881682,
-  "uncompressed_size": 72364032,
+  "size": 10832423,
+  "uncompressed_size": 72388608,
   "entries": 51715,
   "links": 82587,
   "platforms": 24,
